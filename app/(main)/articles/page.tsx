@@ -1,13 +1,10 @@
-import { MDX } from "@/features/mdx";
+import { Title } from "@/components/typography/title";
 import type { PageParams } from "@/types/next";
 
 export default async function RoutePage({}: PageParams) {
   return (
-    <MDX
-      source={`# Notifications
-  You have 3 unread messages.
-
-  `}
-    />
+    <div>
+      <Title>Articles</Title>
+    </div>
   );
 }

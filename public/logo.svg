@@ -1,0 +1,13 @@
+<svg width="552" height="552" viewBox="0 0 552 552" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="552" height="552" rx="71" fill="#25B36B"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M276 488C393.084 488 488 393.084 488 276C488 158.916 393.084 64 276 64C158.916 64 64 158.916 64 276C64 393.084 158.916 488 276 488ZM276 447C370.441 447 447 370.441 447 276C447 181.559 370.441 105 276 105C181.559 105 105 181.559 105 276C105 370.441 181.559 447 276 447Z" fill="white"/>
+<circle cx="275.5" cy="275.5" r="32.5" fill="white"/>
+<rect x="342" y="261" width="70" height="29" rx="14.5" fill="#3C3C3C" fill-opacity="0.7"/>
+<rect x="139" y="261" width="70" height="29" rx="14.5" fill="#3C3C3C" fill-opacity="0.7"/>
+<rect x="262" y="210" width="70" height="29" rx="14.5" transform="rotate(-90 262 210)" fill="#3C3C3C" fill-opacity="0.7"/>
+<rect x="262" y="413" width="70" height="29" rx="14.5" transform="rotate(-90 262 413)" fill="#3C3C3C" fill-opacity="0.7"/>
+<rect x="312.543" y="218.497" width="70" height="29" rx="14.5" transform="rotate(-45 312.543 218.497)" fill="#3C3C3C" fill-opacity="0.7"/>
+<rect x="169" y="362.04" width="70" height="29" rx="14.5" transform="rotate(-45 169 362.04)" fill="#3C3C3C" fill-opacity="0.7"/>
+<rect x="218.497" y="239.003" width="70" height="29" rx="14.5" transform="rotate(-135 218.497 239.003)" fill="#3C3C3C" fill-opacity="0.7"/>
+<rect x="362.04" y="382.546" width="70" height="29" rx="14.5" transform="rotate(-135 362.04 382.546)" fill="#3C3C3C" fill-opacity="0.7"/>
+</svg>
