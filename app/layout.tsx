@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { geistMono, geistSans } from "./fonts";
+import { notoSans, vazirmatn } from "./fonts";
 import "./globals.css";
 import { Provider } from "./provider";
 
@@ -18,8 +18,8 @@ export default function RootLayout({
     <html lang="en" className="">
       <body
         className={cn(
-          geistSans.variable,
-          geistMono.variable,
+          notoSans.variable,
+          vazirmatn.variable,
           "h-screen overflow-hidden antialiased"
         )}
       >

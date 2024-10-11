@@ -1,0 +1,163 @@
+---
+title: Comment Fetch des Données en React
+description: Lorsque vous développez des applications web avec React, la gestion de la récupération de données depuis une API est une compétence clé. Cet article couvre les meilleures pratiques pour fetch des données dans React, en utilisant les hooks modernes tels que `useEffect` et `fetch`.
+---
+
+## 1. Utiliser `fetch` pour Récupérer des Données
+
+Le moyen le plus simple de récupérer des données dans un composant React est d'utiliser l'API JavaScript `fetch()`.
+
+<Info>Test</Info>
+
+### Exemple de base :
+
+```javascript
+function App() {
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch("https://api.example.com/data")
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  }, []);
+
+  if (!data) return <div>Chargement...</div>;
+
+  return (
+    <div>
+      <h1>Voici les données :</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Explication :
+
+- **useState** : Nous utilisons `useState` pour stocker les données récupérées.
+- **useEffect** : `useEffect` est un hook qui permet de gérer les effets secondaires, comme les appels API. Dans cet exemple, il effectue une requête `fetch` lors du premier rendu du composant.
+- **fetch** : `fetch()` est une fonction JavaScript qui permet de récupérer des ressources depuis un serveur.
+
+## 2. Gérer les Erreurs et les Etats de Chargement
+
+Il est essentiel de gérer correctement les erreurs et les états de chargement pour offrir une meilleure expérience utilisateur.
+
+### Exemple avec gestion d'erreurs :
+
+```javascript
+function App() {
+  const [data, setData] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch("https://api.example.com/data")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur de requête");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Chargement...</div>;
+  if (error) return <div>Erreur : {error.message}</div>;
+
+  return (
+    <div>
+      <h1>Données :</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Explication :
+
+- **Gestion des erreurs** : Nous vérifions si la réponse est correcte avec `response.ok`. Si elle ne l’est pas, nous lançons une erreur.
+- **Gestion du chargement** : Nous utilisons `loading` pour indiquer à l'utilisateur que les données sont en cours de chargement.
+- **Gestion des erreurs** : Si une erreur est capturée par le bloc `catch`, nous la stockons dans l'état `error` pour l'afficher à l'utilisateur.
+
+## 3. Utiliser une Librairie de Récupération de Données
+
+Si vous avez besoin de récupérer fréquemment des données, vous pouvez envisager l'utilisation de bibliothèques spécialisées comme **Axios** ou **SWR**.
+
+### Exemple avec Axios :
+
+```javascript
+import axios from "axios";
+
+function App() {
+  const [data, setData] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    axios
+      .get("https://api.example.com/data")
+      .then((response) => {
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>Chargement...</div>;
+  if (error) return <div>Erreur : {error.message}</div>;
+
+  return (
+    <div>
+      <h1>Données :</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Pourquoi utiliser Axios :
+
+- **Simplicité** : Axios offre une syntaxe plus simple pour la gestion des requêtes HTTP, notamment pour configurer des en-têtes ou gérer des formats de réponse spécifiques.
+- **Gestion des erreurs** : Axios gère automatiquement certaines erreurs, comme les requêtes annulées.
+
+## 4. Conseils supplémentaires
+
+- **Nettoyage des Effets** : Si vous faites des appels à des APIs dans des composants React, il est essentiel de nettoyer les effets pour éviter des fuites de mémoire, surtout si un composant est démonté avant que la réponse de l'API n'arrive.
+
+  ```javascript
+  React.useEffect(() => {
+    let isMounted = true;
+    fetch("https://api.example.com/data")
+      .then((response) => response.json())
+      .then((data) => {
+        if (isMounted) {
+          setData(data);
+        }
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+  ```
+
+- **Optimisation avec SWR** : Utilisez une bibliothèque comme SWR (Stale-While-Revalidate) pour de meilleures performances et gestion des données en cache.
+
+---
+
+En suivant ces étapes, vous pourrez efficacement fetch des données dans vos applications React tout en gérant les erreurs et les états de manière professionnelle.

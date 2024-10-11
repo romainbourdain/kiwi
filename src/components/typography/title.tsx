@@ -38,7 +38,7 @@ export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
     return (
       <TitleElement
         ref={ref}
-        className={cn(titleVariants({ variant }), className)}
+        className={cn("font-vazirmatn", titleVariants({ variant }), className)}
         {...props}
       >
         {children}

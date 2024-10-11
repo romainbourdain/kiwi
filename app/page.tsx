@@ -1,4 +1,4 @@
-import { MDX } from "@/features/mdx";
+import { MDX } from "@/features/mdx/mdx";
 import type { PageParams } from "@/types/next";
 
 export default async function RoutePage({}: PageParams) {

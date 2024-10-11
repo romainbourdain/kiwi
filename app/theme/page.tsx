@@ -20,7 +20,7 @@ export default async function RoutePage({}: PageParams) {
           <Caption>You have 3 unread messages.</Caption>
         </CardHeader>
         <CardContent>
-          <Row className="gap-4 rounded-md border p-3">
+          <Row className="gap-4 rounded-md border bg-background-3 p-3">
             <Bell className="size-6" />
             <div className="flex flex-col">
               <Text className="font-bold">Push Notifications</Text>
@@ -29,7 +29,13 @@ export default async function RoutePage({}: PageParams) {
           </Row>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" variant="neutral">
+          <Button className="w-full">
+            <Check className="size-4" /> Mark as read
+          </Button>
+          <Button className="w-full" variant="secondary">
+            <Check className="size-4" /> Mark as read
+          </Button>
+          <Button className="w-full" variant="accent">
             <Check className="size-4" /> Mark as read
           </Button>
         </CardFooter>

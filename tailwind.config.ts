@@ -56,25 +56,20 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        pacifico: "var(--font-pacifico)",
+        vazirmatn: "var(--font-vazirmatn)",
+        "noto-sans": "var(--font-noto-sans)",
       },
-      animation: {
-        spotlight: "spotlight 2s ease .75s 1 forwards",
-      },
-      keyframes: {
-        spotlight: {
-          "0%": {
-            opacity: "0",
-            transform: "translate(-72%, -62%) scale(0.5)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translate(-50%,-40%) scale(1)",
-          },
-        },
+      fontSize: {
+        // sm: "0.600rem",
+        // base: "0.8rem",
+        // xl: "1.066rem",
+        // "2xl": "1.421rem",
+        // "3xl": "1.894rem",
+        // "4xl": "2.525rem",
+        // "5xl": "3.366rem",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
 export default config;

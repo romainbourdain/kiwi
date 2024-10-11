@@ -9,7 +9,7 @@ export type TextProps = HTMLAttributes<HTMLSpanElement> &
 
 export const Text = forwardRef<HTMLHeadingElement, TextProps>(
   ({ as, children, className, ...props }, ref) => {
-    const TitleElement = as || "span";
+    const TitleElement = as || "p";
     return (
       <TitleElement
         ref={ref}
@@ -26,7 +26,7 @@ Text.displayName = "Text";
 
 export const Caption = forwardRef<HTMLHeadingElement, TextProps>(
   ({ as, children, className, ...props }, ref) => {
-    const TitleElement = as || "span";
+    const TitleElement = as || "p";
     return (
       <TitleElement
         ref={ref}
