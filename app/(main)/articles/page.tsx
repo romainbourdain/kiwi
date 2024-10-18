@@ -1,5 +1,5 @@
-import { Caption } from "@/components/typography/text";
-import { Title } from "@/components/typography/title";
+import { Page } from "@/components/container/page";
+import { Typography } from "@/components/typography/text";
 import {
   Card,
   CardContent,
@@ -14,19 +14,21 @@ export default async function RoutePage({}: PageParams) {
   const articles = await db.article.findMany();
 
   return (
-    <div className="space-y-8">
-      <Title>Articles</Title>
+    <Page className="max-w-screen-lg">
+      <Typography variant="h1">Articles</Typography>
       <div className="grid grid-cols-1 gap-4">
         {articles.map((article) => (
           <Card key={article.slug}>
             <CardHeader>
-              <Caption>
+              <span className="text-muted-foreground">
                 {new Date(article.updatedAt).toLocaleDateString()}
-              </Caption>
-              <Title variant="h3">{article.title}</Title>
+              </span>
+              <Typography variant="h3">{article.title}</Typography>
             </CardHeader>
             <CardContent>
-              <Caption className="line-clamp-2">{article.description}</Caption>
+              <span className="text-muted-foreground">
+                {article.description}
+              </span>
             </CardContent>
             <CardFooter>
               <Link href={`/articles/${article.slug}`} className="text-primary">
@@ -36,6 +38,6 @@ export default async function RoutePage({}: PageParams) {
           </Card>
         ))}
       </div>
-    </div>
+    </Page>
   );
 }

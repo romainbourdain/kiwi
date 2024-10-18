@@ -1,11 +1,10 @@
-import { Spinner } from "@/components/animation/spinner";
-import { Center } from "@/components/container/center";
-import { Caption } from "@/components/typography/text";
+import { Page } from "@/components/container/page";
+import { Typography } from "@/components/typography/text";
+import { Separator } from "@/components/ui/separator";
 import { MDX } from "@/features/mdx/mdx";
 import { db } from "@/lib/db";
 import type { PageParams } from "@/types/next";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
 export default async function RoutePage({
   params: { slug },
@@ -15,21 +14,21 @@ export default async function RoutePage({
   if (!article) return notFound();
 
   return (
-    <Suspense
-      fallback={
-        <Center className="py-5">
-          <Spinner className="size-10" />
-        </Center>
-      }
-    >
-      <div className="prose prose-sm dark:prose-invert lg:prose-lg">
-        <Caption>{new Date(article.updatedAt).toLocaleDateString()}</Caption>
-        <h1>{article.title}</h1>
-        <p>{article.description}</p>
-        <div>
+    <Page className="grid grid-cols-[auto_1fr] gap-6">
+      <div className="w-full max-w-screen-md space-y-4">
+        <Typography variant="sm" color="secondary">
+          {new Date(article.updatedAt).toLocaleDateString("fr-FR")}
+        </Typography>
+        <Typography variant="h1">{article.title}</Typography>
+        <Typography variant="p">{article.description}</Typography>
+        <Separator />
+        <div className="">
           <MDX source={article.content} />
         </div>
       </div>
-    </Suspense>
+      <aside className="size-full">
+        <Typography variant="h3">Table des matières</Typography>
+      </aside>
+    </Page>
   );
 }

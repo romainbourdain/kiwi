@@ -1,13 +1,13 @@
-import { MDX } from "@/features/mdx/mdx";
+import { auth } from "@/lib/auth";
 import type { PageParams } from "@/types/next";
+import { redirect } from "next/navigation";
 
 export default async function RoutePage({}: PageParams) {
-  return (
-    <MDX
-      source={`# Notifications
-  You have 3 unread messages.
+  const session = await auth();
 
-  `}
-    />
-  );
+  if (session?.user) {
+    redirect("/home");
+  }
+
+  return <div></div>;
 }

@@ -26,7 +26,7 @@ const MdxAlert = ({
         <Icon />
         {title}
       </AlertTitle>
-      <AlertDescription className="text-base text-foreground-1">
+      <AlertDescription className="text-base text-foreground">
         {children}
       </AlertDescription>
     </Alert>
@@ -57,12 +57,12 @@ export const MdxWarning = ({ children }: MdxAlertProps) => {
   );
 };
 
-export const MdxError = ({ children }: MdxAlertProps) => {
+export const MdxDestructive = ({ children }: MdxAlertProps) => {
   return (
     <MdxAlert
       title="Erreur"
       icon={CircleAlert}
-      className={alertVariants({ variant: "error" })}
+      className={alertVariants({ variant: "destructive" })}
     >
       {children}
     </MdxAlert>

@@ -15,11 +15,23 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  role          Role
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
+  articles Article[]
+  comments Comment[]
+  views    View[]
+  likes    Like[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  User
+  Teacher
+  Admin
 }
 
 model Account {
@@ -78,12 +90,67 @@ model Authenticator {
 }
 
 model Article {
-  id          Int      @id @default(autoincrement())
+  slug      String  @id
+  published Boolean @default(false)
+
   title       String
-  slug        String   @unique
   description String?
   content     String
-  published   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  image       String?
+
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String
+
+  tags     Tag[]
+  views    View[]
+  likes    Like[]
+  comments Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  slug     String    @id
+  articles Article[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  content String
+
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String
+
+  articles    Article? @relation(fields: [articleSlug], references: [slug], onDelete: Cascade)
+  articleSlug String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model View {
+  id          Int     @id @default(autoincrement())
+  userId      String? // for authenticated users
+  articleSlug String
+  ip          String? // for unauthenticated users
+
+  article Article @relation(fields: [articleSlug], references: [slug], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id        String @id @default(cuid())
+  userId    String
+  articleId String
+
+  article Article @relation(fields: [articleId], references: [slug], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 }

@@ -2,12 +2,12 @@
 import rehypeShiki from "@shikijs/rehype";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote-client/rsc";
 import type { PluggableList } from "unified";
-import { MdxError, MdxInfo, MdxSuccess, MdxWarning } from "./mdx-alert";
+import { MdxDestructive, MdxInfo, MdxSuccess, MdxWarning } from "./mdx-alert";
 
 const components = {
   Info: MdxInfo,
   Warning: MdxWarning,
-  Error: MdxError,
+  Error: MdxDestructive,
   Success: MdxSuccess,
 };
 
