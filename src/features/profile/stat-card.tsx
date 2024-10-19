@@ -1,3 +1,4 @@
+import { CircledIcon } from "@/components/icon/circled-icon";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
@@ -8,16 +9,10 @@ export type StatCardProps = PropsWithChildren<{
   className?: string;
 }>;
 
-export const StatCard = ({
-  icon: Icon,
-  children,
-  className,
-}: StatCardProps) => {
+export const StatCard = ({ icon, children, className }: StatCardProps) => {
   return (
     <Card className={cn("flex flex-row items-center gap-6 p-4", className)}>
-      <div className="rounded-full border p-2">
-        <Icon className="size-10" />
-      </div>
+      <CircledIcon icon={icon} />
       <div className="flex w-full flex-col">{children}</div>
     </Card>
   );

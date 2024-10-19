@@ -1,5 +1,5 @@
-import { Center } from "@/components/container/center";
-import { Typography } from "@/components/typography/text";
+import { Center } from "@/components/container/flex";
+import { Text } from "@/components/typography/text";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { providerMap } from "@/lib/auth";
 import type { PageParams } from "@/types/next";
@@ -10,10 +10,10 @@ export default async function RoutePage({}: PageParams) {
     <Center>
       <Card>
         <CardHeader>
-          <Typography variant="h3">Se connecter</Typography>
-          <Typography variant="sm" color="secondary">
+          <Text variant="h3">Se connecter</Text>
+          <Text variant="muted">
             Se connecter pour accéder à tous les cours !
-          </Typography>
+          </Text>
         </CardHeader>
         <CardContent>
           {Object.values(providerMap).map((provider) => (

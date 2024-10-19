@@ -2,6 +2,7 @@
 
 import { Toaster } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import { Fragment, type PropsWithChildren } from "react";
 
@@ -13,10 +14,12 @@ export const Provider = ({ children }: ProviderProps) => {
   return (
     <Fragment>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <QueryClientProvider client={queryClient}>
-          <Toaster />
-          {children}
-        </QueryClientProvider>
+        <SessionProvider>
+          <QueryClientProvider client={queryClient}>
+            <Toaster />
+            {children}
+          </QueryClientProvider>
+        </SessionProvider>
       </ThemeProvider>
     </Fragment>
   );

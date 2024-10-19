@@ -1,0 +1,53 @@
+model Article {
+  slug        String    @id
+  published   Boolean   @default(false)
+  title       String
+  description String?
+  content     String
+  image       String?
+  authorId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments    Comment[]
+  likes       Like[]
+  views       View[]
+  tags        Tag[]     @relation("ArticleToTag")
+}
+
+model Tag {
+  slug      String    @id
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  articles  Article[] @relation("ArticleToTag")
+}
+
+model Comment {
+  id          Int      @id @default(autoincrement())
+  content     String
+  authorId    String
+  articleSlug String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  articles    Article? @relation(fields: [articleSlug], references: [slug], onDelete: Cascade)
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model View {
+  id          Int      @id @default(autoincrement())
+  userId      String?
+  articleSlug String
+  ip          String?
+  createdAt   DateTime @default(now())
+  article     Article  @relation(fields: [articleSlug], references: [slug], onDelete: Cascade)
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  userId    String
+  articleId String
+  createdAt DateTime @default(now())
+  article   Article  @relation(fields: [articleId], references: [slug], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

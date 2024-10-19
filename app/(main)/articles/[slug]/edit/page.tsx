@@ -1,5 +1,5 @@
 import { Page } from "@/components/container/page";
-import { Typography } from "@/components/typography/text";
+import { Text } from "@/components/typography/text";
 import { CreateArticleForm } from "@/features/article/create-article-form";
 import { db } from "@/lib/db";
 import type { PageParams } from "@/types/next";
@@ -13,7 +13,7 @@ export default async function RoutePage({
   if (!article) return notFound();
   return (
     <Page>
-      <Typography variant="h1">Modifier l'article</Typography>
+      <Text variant="h1">Modifier l'article</Text>
       <CreateArticleForm defaultValues={article} id={article.id} />
     </Page>
   );

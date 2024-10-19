@@ -8,71 +8,60 @@ import { forwardRef } from "react";
 const textVariants = cva("", {
   variants: {
     variant: {
+      h1: "scroll-m-20 text-4xl font-extrabold tracking-tight",
+      h2: "scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0",
+      h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
+      h4: "scroll-m-20 text-xl font-semibold tracking-tight",
+      p: "leading-7",
       base: "text-base",
+      muted: "text-sm font-medium leading-none text-muted-foreground",
+      lead: "text-xl text-muted-foreground",
       sm: "text-sm font-medium leading-none",
       lg: "text-lg font-semibold",
       "inline-code":
         "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
       blockquote: "mt-6 border-l-2 pl-6 italic",
-      p: "leading-7",
-      h4: "scroll-m-20 text-xl font-semibold tracking-tight",
-      h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
-      h2: "scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0",
-      h1: "scroll-m-20 text-4xl font-extrabold tracking-tight",
-    },
-    color: {
-      default: "text-foreground",
-      secondary: "text-muted-foreground",
     },
   },
   defaultVariants: {
     variant: "p",
-    color: "default",
   },
 });
 
-type typographyVariantComp = "p" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+type textVariantComp = "p" | "h1" | "h2" | "h3" | "h4" | "blockquote";
 
-const getTypographyCompFromVariant = (
+const getTextCompFromVariant = (
   variant: NonNullable<VariantProps<typeof textVariants>["variant"]>
 ) => {
   if (["p", "h1", "h2", "h3", "h4", "blockquote"].includes(variant))
-    return variant as typographyVariantComp;
+    return variant as textVariantComp;
   if (variant === "inline-code") return "code";
   return "span";
 };
 
-export type TypographyProps<T extends ElementType> =
-  HTMLAttributes<HTMLElement> &
-    VariantProps<typeof textVariants> & {
-      asChild?: boolean;
-      as?: T;
-    };
+export type TextProps<T extends ElementType> = HTMLAttributes<HTMLElement> &
+  VariantProps<typeof textVariants> & {
+    asChild?: boolean;
+    as?: T;
+  };
 
-export const Typography = forwardRef(
+export const Text = forwardRef(
   <T extends ElementType = "span">(
-    {
-      asChild = false,
-      as,
-      variant,
-      color,
-      className,
-      ...props
-    }: TypographyProps<T>,
+    { asChild = false, as, variant, className, ...props }: TextProps<T>,
     ref: Ref<HTMLElement>
   ) => {
     const Comp: ElementType = asChild
       ? Slot
-      : as || getTypographyCompFromVariant(variant || "base");
+      : as || getTextCompFromVariant(variant || "base");
 
     return (
       <Comp
         ref={ref}
-        className={cn(textVariants({ variant, color }), className)}
+        className={cn(textVariants({ variant }), className)}
         {...props}
       />
     );
   }
 );
 
-Typography.displayName = "Typography";
+Text.displayName = "Text";

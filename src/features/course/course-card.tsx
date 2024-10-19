@@ -1,4 +1,4 @@
-import { Typography } from "@/components/typography/text";
+import { Text } from "@/components/typography/text";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,10 +27,10 @@ export const CourseCard = ({
           className="size-16 rounded-md"
         />
         <div className="flex w-full flex-col gap-2">
-          <Typography variant="h4">{title}</Typography>
-          <Typography variant="sm" color="secondary">
+          <Text variant="h4">{title}</Text>
+          <Text variant="sm" color="secondary">
             {subtitle}
-          </Typography>
+          </Text>
         </div>
       </Card>
     </Link>

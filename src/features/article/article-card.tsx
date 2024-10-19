@@ -1,5 +1,5 @@
-import { Row } from "@/components/container/row";
-import { Typography } from "@/components/typography/text";
+import { Row } from "@/components/container/flex";
+import { Text } from "@/components/typography/text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -42,27 +42,27 @@ export const ArticleCard = ({
           </Row>
           <div className="flex items-center gap-1">
             <Eye className="size-4" />
-            <Typography variant="sm">{views}</Typography>
+            <Text variant="sm">{views}</Text>
           </div>
           <div className="flex items-center gap-1">
             <Star className="size-4" />
-            <Typography variant="sm">{likes}</Typography>
+            <Text variant="sm">{likes}</Text>
           </div>
         </Row>
-        <Typography variant="sm" color="secondary">
+        <Text variant="sm" color="secondary">
           {new Date(article.createdAt).toLocaleDateString("fr-FR")}
-        </Typography>
-        <Typography variant="h3" className="flex-1">
+        </Text>
+        <Text variant="h3" className="flex-1">
           {article.title}
-        </Typography>
+        </Text>
         <Row className="gap-2">
           <Avatar className="size-8">
             <AvatarImage src={author.image || ""} />
             <AvatarFallback>{author.name?.[0]}</AvatarFallback>
           </Avatar>
-          <Typography variant="base" className="font-semibold">
+          <Text variant="base" className="font-semibold">
             {author.name}
-          </Typography>
+          </Text>
         </Row>
       </Card>
     </Link>

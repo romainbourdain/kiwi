@@ -1,5 +1,5 @@
 import { Page } from "@/components/container/page";
-import { Typography } from "@/components/typography/text";
+import { Text } from "@/components/typography/text";
 import {
   Card,
   CardContent,
@@ -15,20 +15,18 @@ export default async function RoutePage({}: PageParams) {
 
   return (
     <Page className="max-w-screen-lg">
-      <Typography variant="h1">Articles</Typography>
+      <Text variant="h1">Articles</Text>
       <div className="grid grid-cols-1 gap-4">
         {articles.map((article) => (
           <Card key={article.slug}>
             <CardHeader>
-              <span className="text-muted-foreground">
-                {new Date(article.updatedAt).toLocaleDateString()}
-              </span>
-              <Typography variant="h3">{article.title}</Typography>
+              <Text variant="muted">
+                {new Date(article.updatedAt).toLocaleDateString("fr-FR")}
+              </Text>
+              <Text variant="h3">{article.title}</Text>
             </CardHeader>
             <CardContent>
-              <span className="text-muted-foreground">
-                {article.description}
-              </span>
+              <Text variant="muted">{article.description}</Text>
             </CardContent>
             <CardFooter>
               <Link href={`/articles/${article.slug}`} className="text-primary">
