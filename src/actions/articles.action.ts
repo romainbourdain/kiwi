@@ -20,3 +20,21 @@ export const getLatestArticles = async (limit: number) => {
     },
   });
 };
+
+export const getArticleBySlug = async (slug: string) => {
+  return await db.article.findUnique({
+    where: {
+      slug,
+    },
+    include: {
+      author: true,
+      tags: true,
+      _count: {
+        select: {
+          views: true,
+          likes: true,
+        },
+      },
+    },
+  });
+};

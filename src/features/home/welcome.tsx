@@ -17,7 +17,7 @@ export const WelcomeContent = async () => {
   return (
     <>
       <Text variant="h1">Bienvenue {user?.name} !</Text>
-      <Text variant="muted">Prends ton envol dès aujourd'hui</Text>
+      <Text variant="lead">Prends ton envol dès aujourd'hui</Text>
     </>
   );
 };
@@ -26,7 +26,7 @@ export const HeaderSectionSkeleton = () => {
   return (
     <>
       <Skeleton className="h-[30px] w-full rounded-full" />
-      <Skeleton className="h-[19px] w-full rounded-full" />
+      <Skeleton className="h-[25px] w-full rounded-full" />
     </>
   );
 };

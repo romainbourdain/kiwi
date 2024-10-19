@@ -1,5 +1,5 @@
-import { twc } from "react-twc";
+import { twx } from "@/lib/twx";
 
-export const Row = twc.div`flex items-center`;
+export const Row = twx.div`flex items-center`;
 
-export const Center = twc.div`size-full flex justify-center items-center`;
+export const Center = twx.div`size-full flex justify-center items-center`;

@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  @import "markdown.css";
+}
+
+@layer base {
   :root {
     --background: 235 3% 97%;
     --foreground: 240 10% 3.9%;
@@ -14,12 +18,18 @@
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
+    --muted: 240 4.8% 93%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    --info: 195 100% 46%;
+    --info-foreground: 0 0% 0%;
+    --success: 160 100% 32%;
+    --success-foreground: 0 0% 0%;
+    --warning: 46 100% 48%;
+    --warning-foreground: 0 0% 0%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
@@ -34,7 +44,7 @@
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: 240 10% 7.5%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
@@ -48,6 +58,12 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
+    --info: 195 100% 46%;
+    --info-foreground: 0 0% 0%;
+    --success: 160 100% 32%;
+    --success-foreground: 0 0% 0%;
+    --warning: 46 100% 48%;
+    --warning-foreground: 0 0% 0%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
@@ -142,7 +158,7 @@
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-95 ring-offset-background rounded-md transition;
   }
 
-  .prose {
+  /* .prose {
     pre {
       @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background;
     }
@@ -154,5 +170,5 @@
         content: "";
       }
     }
-  }
+  } */
 }

@@ -1,0 +1,102 @@
+article {
+  h1 {
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight first:mt-0 mb-3;
+  }
+
+  h2 {
+    @apply scroll-m-20 text-3xl font-semibold tracking-tight mb-3;
+  }
+
+  h3 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight mb-1;
+  }
+
+  h4 {
+    @apply text-xl font-semibold;
+  }
+
+  h5 {
+    @apply text-lg font-semibold;
+  }
+
+  p {
+    @apply leading-7 [&:not(:first-child)]:mt-3;
+  }
+
+  hr {
+    @apply mt-3 border-border;
+  }
+
+  a {
+    @apply font-medium text-primary underline underline-offset-4;
+  }
+
+  code:not(pre > code) {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold mx-1;
+  }
+
+  ul,
+  ol {
+    @apply pl-6;
+  }
+
+  ul:not(ul ul),
+  ol:not(ol ol) {
+    @apply my-4;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  [data-rehype-pretty-code-figure] pre {
+    @apply px-0;
+  }
+
+  [data-rehype-pretty-code-figure] code {
+    @apply text-sm !leading-loose md:text-base border-0 p-0;
+  }
+
+  [data-rehype-pretty-code-figure] code[data-line-numbers] {
+    counter-reset: line;
+  }
+
+  [data-rehype-pretty-code-figure]
+    code[data-line-numbers]
+    > [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    @apply mr-4 inline-block w-4 text-right text-gray-500;
+  }
+
+  [data-rehype-pretty-code-figure] [data-line] {
+    @apply border-l-2 border-l-transparent px-3;
+  }
+
+  [data-rehype-pretty-code-figure] [data-highlighted-line] {
+    background: rgba(200, 200, 255, 0.1);
+    @apply border-l-blue-400;
+  }
+
+  [data-rehype-pretty-code-figure] [data-highlighted-chars] {
+    @apply rounded bg-zinc-600/50;
+    box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
+  }
+
+  [data-rehype-pretty-code-figure] [data-chars-id] {
+    @apply border-b-2 p-1 shadow-none;
+  }
+
+  .subheading-anchor {
+    @apply no-underline relative;
+  }
+
+  .subheading-anchor::before {
+    content: "#";
+    @apply text-muted-foreground absolute -translate-x-[calc(100%+.3rem)] opacity-0 transition-opacity hover:opacity-100;
+  }
+}

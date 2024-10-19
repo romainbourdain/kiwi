@@ -1,33 +1,88 @@
-import { Page } from "@/components/container/page";
+import { getArticleBySlug } from "@/actions/articles.action";
+import { Row } from "@/components/container/flex";
+import { Page, PageSeparator } from "@/components/container/page";
+import { ArticleMdx } from "@/components/mdx/mdx";
 import { Text } from "@/components/typography/text";
-import { Separator } from "@/components/ui/separator";
-import { MDX } from "@/features/mdx/mdx";
-import { db } from "@/lib/db";
-import { formatDate } from "@/lib/utils/date";
+import { Badge } from "@/components/ui/badge";
+import { getDate } from "@/lib/utils/format";
 import type { PageParams } from "@/types/next";
+import { Eye, Star } from "lucide-react";
 import { notFound } from "next/navigation";
+
+const fakeMarkdown = `
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi soluta a, consectetur eos ipsum molestiae nisi facilis. Unde nobis molestiae ipsam optio culpa earum numquam, ullam molestias, minima assumenda eaque deserunt consequuntur, laudantium incidunt consectetur veniam recusandae asperiores quis ea ab!
+
+> Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi
+
+<Warning>This is a warning</Warning>
+<Tip>This is a tip</Tip>
+<Danger>This is a danger</Danger>
+<Info>This is an info</Info>
+
+\`\`\`javascript showLineNumbers
+console.log("Hello World!");
+\`\`\`
+
+Lorem ipsum dolor sit amet **consectetur** adipisicing elit. Facere quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi \`inlinecode\` soluta a, consectetur eos ipsum molestiae nisi facilis. Unde nobis molestiae ipsam optio culpa earum numquam, ullam molestias, minima assumenda eaque deserunt consequuntur, laudantium incidunt consectetur __veniam__ recusandae asperiores quis ea ab!
+
+Lorem ipsum dolor sit amet *consectetur* adipisicing elit. _Facere_ quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi \`inlinecode\` soluta a, consectetur eos ipsum molestiae nisi facilis. Unde nobis molestiae ipsam optio culpa earum numquam, ullam molestias, minima assumenda eaque deserunt consequuntur, laudantium incidunt consectetur veniam recusandae asperiores quis ea ab! [google](https://google.com)
+
+---
+
+Lorem ipsum dolor sit amet *consectetur* adipisicing elit. _Facere_ quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi \`inlinecode\` soluta a, consectetur eos ipsum molestiae nisi facilis. Unde nobis molestiae ipsam optio culpa earum numquam, ullam molestias, minima assumenda eaque deserunt consequuntur, laudantium incidunt consectetur veniam recusandae asperiores quis ea ab! [google]()
+
+- List item 1
+- List item 2
+    - List item 2.1
+- List item 3
+
+1. Numbered item 1
+    1. Numbered item 1.1
+2. Numbered item 2
+3. Numbered item 3
+`;
 
 export default async function RoutePage({
   params: { slug },
 }: PageParams<{ slug: string }>) {
-  const article = await db.article.findUnique({ where: { slug } });
+  const article = await getArticleBySlug(slug);
 
   if (!article) return notFound();
 
   return (
-    <Page className="grid grid-cols-[auto_1fr] gap-6">
-      <div className="w-full max-w-screen-md space-y-4">
-        <Text variant="muted">{formatDate(article.updatedAt)}</Text>
-        <Text variant="h1">{article.title}</Text>
-        <Text variant="p">{article.description}</Text>
-        <Separator />
-        <div className="">
-          <MDX source={article.content} />
+    <Page>
+      <section>
+        <Text variant="muted">{getDate(article.updatedAt)}</Text>
+        <Row className="gap-2">
+          {article.tags.map((tag) => (
+            <Badge key={tag.slug}>{tag.slug}</Badge>
+          ))}
+        </Row>
+        <div className="space-y-3">
+          <Text variant="h1">{article.title}</Text>
+          <Text variant="p">{article.description}</Text>
         </div>
-      </div>
-      <aside className="size-full">
-        <Text variant="h3">Table des matières</Text>
-      </aside>
+        <Row className="gap-4">
+          <Row className="gap-1">
+            <Star className="size-4" />
+            {article._count.likes}
+          </Row>
+          <Row className="gap-1">
+            <Eye className="size-4" />
+            {article._count.views}
+          </Row>
+        </Row>
+      </section>
+      <PageSeparator />
+      <section>
+        <ArticleMdx source={fakeMarkdown} />
+      </section>
     </Page>
   );
 }

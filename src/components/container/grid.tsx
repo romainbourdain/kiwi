@@ -1,3 +1,3 @@
-import { twc } from "react-twc";
+import { twx } from "@/lib/twx";
 
-export const Grid = twc.div`grid`;
+export const Grid = twx.div`grid`;

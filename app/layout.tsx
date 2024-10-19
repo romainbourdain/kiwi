@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notoSans, vazirmatn } from "./fonts";
-import "./globals.css";
 import { Provider } from "./provider";
+import "./styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Kiwi",
