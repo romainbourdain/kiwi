@@ -33,6 +33,7 @@ export const getArticleBySlug = async (slug: string) => {
         select: {
           views: true,
           likes: true,
+          comments: true,
         },
       },
     },

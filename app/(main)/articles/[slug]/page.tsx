@@ -4,9 +4,11 @@ import { Page, PageSeparator } from "@/components/container/page";
 import { ArticleMdx } from "@/components/mdx/mdx";
 import { Text } from "@/components/typography/text";
 import { Badge } from "@/components/ui/badge";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { PageParams } from "@/types/next";
 import { getDate } from "@/utils/format";
-import { Eye, Star } from "lucide-react";
+import { Eye, Forward, MessageCircle, Star } from "lucide-react";
 import { notFound } from "next/navigation";
 
 const fakeMarkdown = `
@@ -64,19 +66,38 @@ export default async function RoutePage({
             <Badge key={tag.slug}>{tag.slug}</Badge>
           ))}
         </Row>
+
         <div className="space-y-3">
           <Text variant="h1">{article.title}</Text>
           <Text variant="p">{article.description}</Text>
         </div>
-        <Row className="gap-4">
-          <Row className="gap-1">
+        <Row className="gap-2">
+          <Button variant="outline">
             <Star className="size-4" />
             {article._count.likes}
-          </Row>
-          <Row className="gap-1">
+          </Button>
+          <Row
+            className={cn(
+              buttonVariants({ variant: "outline" }),
+              "bg-transparent"
+            )}
+          >
             <Eye className="size-4" />
             {article._count.views}
           </Row>
+          <Row
+            className={cn(
+              buttonVariants({ variant: "outline" }),
+              "bg-transparent"
+            )}
+          >
+            <MessageCircle className="size-4" />
+            {article._count.comments}
+          </Row>
+          <Button variant="outline">
+            <Forward className="size-4" />
+            Partager
+          </Button>
         </Row>
       </section>
       <PageSeparator />

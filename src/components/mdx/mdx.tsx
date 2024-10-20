@@ -24,7 +24,23 @@ const options: MDXRemoteOptions = {
   mdxOptions: {
     rehypePlugins: [
       rehypeSlug,
-      [rehypePrettyCode, { theme: "github-dark" }],
+      [
+        rehypePrettyCode,
+        {
+          theme: "github-dark",
+          // theme: {
+          //   light: "github-light",
+          //   dark: "github-dark",
+          // },
+          keepBackground: true,
+          // transformers: [
+          //   transformerCopyButton({
+          //     visibility: "hover",
+          //     feedbackDuration: 3_000,
+          //   }),
+          // ],
+        },
+      ],
       [
         rehypeAutoLinkHeadings,
         {
@@ -39,7 +55,7 @@ const options: MDXRemoteOptions = {
   },
 };
 
-export function ArticleMdx(props: MDXRemoteProps) {
+export const ArticleMdx = (props: MDXRemoteProps) => {
   return (
     <Grid className="w-full grid-cols-[auto_1fr]">
       <article className="w-full max-w-screen-md">
@@ -55,4 +71,4 @@ export function ArticleMdx(props: MDXRemoteProps) {
       <aside className=""></aside>
     </Grid>
   );
-}
+};

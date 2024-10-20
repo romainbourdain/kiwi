@@ -123,6 +123,8 @@ export default [
       ],
     },
   },
+
+  // Ignore files
   {
     ignores: ["tailwind.config.ts", "next.config.mjs", "*.js"],
   },

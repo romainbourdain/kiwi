@@ -54,7 +54,7 @@ article {
   }
 
   pre {
-    @apply my-4 rounded-md overflow-x-scroll;
+    @apply my-4 rounded-md overflow-x-scroll bg-muted;
   }
 
   [data-rehype-pretty-code-figure] pre {
@@ -103,4 +103,14 @@ article {
     content: "#";
     @apply text-muted-foreground absolute -translate-x-[calc(100%+.3rem)] opacity-0 transition-opacity hover:opacity-100;
   }
+}
+
+code[data-theme*=" "],
+code[data-theme*=" "] span {
+  color: var(--shiki-light);
+}
+
+.dark code[data-theme*=" "],
+.dark code[data-theme*=" "] span {
+  color: var(--shiki-dark);
 }

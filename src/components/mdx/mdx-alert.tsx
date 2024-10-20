@@ -64,11 +64,12 @@ export type MdxAlertProps = HTMLAttributes<HTMLDivElement> &
   };
 
 export const MdxAlert = forwardRef<HTMLDivElement, MdxAlertProps>(
-  ({ variant, className, title, children, ...props }) => {
+  ({ variant, className, title, children, ...props }, ref) => {
     const Icon = getAlertIcon(variant);
     return (
       <div
         className={cn("space-y-2", mdxAlertVariants({ variant }), className)}
+        ref={ref}
         {...props}
       >
         {Icon && (
