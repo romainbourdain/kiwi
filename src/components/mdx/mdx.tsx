@@ -41,7 +41,7 @@ const options: MDXRemoteOptions = {
 
 export function ArticleMdx(props: MDXRemoteProps) {
   return (
-    <Grid className="grid-cols-[auto_1fr]">
+    <Grid className="w-full grid-cols-[auto_1fr]">
       <article className="w-full max-w-screen-md">
         <Suspense fallback={<div>Loading...</div>}>
           <MDXRemote
@@ -52,7 +52,7 @@ export function ArticleMdx(props: MDXRemoteProps) {
           />
         </Suspense>
       </article>
-      <aside></aside>
+      <aside className=""></aside>
     </Grid>
   );
 }

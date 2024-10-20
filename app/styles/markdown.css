@@ -1,10 +1,10 @@
 article {
   h1 {
-    @apply scroll-m-20 text-4xl font-extrabold tracking-tight first:mt-0 mb-3;
+    @apply scroll-m-20 text-4xl font-bold tracking-tight mb-3;
   }
 
   h2 {
-    @apply scroll-m-20 text-3xl font-semibold tracking-tight mb-3;
+    @apply scroll-m-20 text-3xl font-semibold tracking-tight mb-2;
   }
 
   h3 {
@@ -27,7 +27,7 @@ article {
     @apply mt-3 border-border;
   }
 
-  a {
+  a:not(.subheading-anchor) {
     @apply font-medium text-primary underline underline-offset-4;
   }
 
@@ -51,6 +51,10 @@ article {
 
   ol {
     @apply list-decimal;
+  }
+
+  pre {
+    @apply my-4 rounded-md overflow-x-scroll;
   }
 
   [data-rehype-pretty-code-figure] pre {

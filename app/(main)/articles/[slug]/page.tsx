@@ -4,8 +4,8 @@ import { Page, PageSeparator } from "@/components/container/page";
 import { ArticleMdx } from "@/components/mdx/mdx";
 import { Text } from "@/components/typography/text";
 import { Badge } from "@/components/ui/badge";
-import { getDate } from "@/lib/utils/format";
 import type { PageParams } from "@/types/next";
+import { getDate } from "@/utils/format";
 import { Eye, Star } from "lucide-react";
 import { notFound } from "next/navigation";
 
