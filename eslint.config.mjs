@@ -11,21 +11,51 @@ import tseslint from "typescript-eslint";
 const compat = new FlatCompat();
 
 export default [
-  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-  { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
-  { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
-  // Tailwind
-  ...tailwind.configs["flat/recommended"],
-  // Typescript
   ...tseslint.configs.recommended,
-  // React
+  ...tailwind.configs["flat/recommended"],
   ...fixupConfigRules(pluginReactConfig),
-  // File structure
+
+  // Basic ESLint configuration
   {
-    plugins: {
-      boundaries,
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+    languageOptions: {
+      parserOptions: { ecmaFeatures: { jsx: true } },
+      globals: globals.browser,
     },
+    rules: {
+      "react/react-in-jsx-scope": 0,
+      "react/jsx-uses-react": 0,
+      "react/no-unescaped-entities": 0,
+      "react/prop-types": 0,
+      "@next/next/no-img-element": 0,
+      "@typescript-eslint/no-empty-object-type": 0,
+      "@typescript-eslint/no-unused-vars": 1,
+      "@typescript-eslint/consistent-type-imports": 1,
+      "no-empty-pattern": 0,
+    },
+  },
+
+  // Next.js specific settings
+  {
+    ignores: [".next/"],
+  },
+  ...fixupConfigRules(compat.extends("plugin:@next/next/core-web-vitals")),
+
+  // React Hooks configuration
+  {
+    plugins: { "react-hooks": hooksPlugin },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    rules: hooksPlugin.configs.recommended.rules,
+  },
+
+  // Boundaries plugin configuration
+  {
+    plugins: { boundaries },
     settings: {
       "boundaries/include": ["src/**/*", "app/**/*"],
       "boundaries/elements": [
@@ -46,7 +76,7 @@ export default [
           mode: "full",
           type: "feature",
           capture: ["featureName"],
-          pattern: ["src/features/**/*"],
+          pattern: ["src/features/*/**/*"],
         },
         {
           mode: "full",
@@ -65,7 +95,7 @@ export default [
       "boundaries/no-unknown": ["error"],
       "boundaries/no-unknown-files": ["error"],
       "boundaries/element-types": [
-        2,
+        "error",
         {
           default: "disallow",
           rules: [
@@ -93,39 +123,7 @@ export default [
       ],
     },
   },
-
   {
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-    plugins: {
-      "react-hooks": hooksPlugin,
-    },
-    rules: hooksPlugin.configs.recommended.rules,
-  },
-  // NextJS
-  {
-    ignores: [".next/"],
-  },
-  ...fixupConfigRules(compat.extends("plugin:@next/next/core-web-vitals")),
-  // Rules config
-  {
-    rules: {
-      "react/react-in-jsx-scope": 0,
-      "react/jsx-uses-react": 0,
-      "react/no-unescaped-entities": 0,
-      "react/prop-types": 0,
-      "@next/next/no-img-element": 0,
-      "@typescript-eslint/no-empty-object-type": 0,
-      "@typescript-eslint/no-unused-vars": 1,
-      "@typescript-eslint/consistent-type-imports": 1,
-      "no-empty-pattern": 0,
-    },
-  },
-  // Ignore files
-  {
-    ignores: ["tailwind.config.ts", "next.config.js", "*.js"],
+    ignores: ["tailwind.config.ts", "next.config.mjs", "*.js"],
   },
 ];
