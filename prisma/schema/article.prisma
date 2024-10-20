@@ -44,10 +44,10 @@ model View {
 }
 
 model Like {
-  id        String   @id @default(cuid())
-  userId    String
-  articleId String
-  createdAt DateTime @default(now())
-  article   Article  @relation(fields: [articleId], references: [slug], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String   @id @default(cuid())
+  userId      String
+  articleSlug String
+  createdAt   DateTime @default(now())
+  article     Article  @relation(fields: [articleSlug], references: [slug], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -5,10 +5,11 @@ import { ArticleMdx } from "@/components/mdx/mdx";
 import { Text } from "@/components/typography/text";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { LikeButton } from "@/features/article/like-button";
 import { cn } from "@/lib/utils";
 import type { PageParams } from "@/types/next";
 import { getDate } from "@/utils/format";
-import { Eye, Forward, MessageCircle, Star } from "lucide-react";
+import { Eye, Forward, MessageCircle } from "lucide-react";
 import { notFound } from "next/navigation";
 
 const fakeMarkdown = `
@@ -53,16 +54,18 @@ Lorem ipsum dolor sit amet *consectetur* adipisicing elit. _Facere_ quisquam dol
 export default async function RoutePage({
   params: { slug },
 }: PageParams<{ slug: string }>) {
-  const article = await getArticleBySlug(slug);
+  const res = await getArticleBySlug({ slug });
 
-  if (!article) return notFound();
+  if (!res?.data) return notFound();
+
+  const { data: article } = res;
 
   return (
     <Page>
       <section>
         <Text variant="muted">{getDate(article.updatedAt)}</Text>
         <Row className="gap-2">
-          {article.tags.map((tag) => (
+          {article.tags?.map((tag) => (
             <Badge key={tag.slug}>{tag.slug}</Badge>
           ))}
         </Row>
@@ -72,10 +75,11 @@ export default async function RoutePage({
           <Text variant="p">{article.description}</Text>
         </div>
         <Row className="gap-2">
-          <Button variant="outline">
-            <Star className="size-4" />
-            {article._count.likes}
-          </Button>
+          <LikeButton
+            isLiked={article.isLiked}
+            likes={article._count.likes}
+            slug={article.slug}
+          />
           <Row
             className={cn(
               buttonVariants({ variant: "outline" }),

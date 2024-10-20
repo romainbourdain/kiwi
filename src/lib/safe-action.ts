@@ -20,7 +20,7 @@ export const actionClient = createSafeActionClient({
   handleServerError,
 });
 
-const getUser = async () => {
+export const getUser = async () => {
   const user = await getAuth();
 
   if (!user) {

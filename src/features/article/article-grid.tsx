@@ -1,5 +1,6 @@
 import { getLatestArticles } from "@/actions/articles.action";
 import { Grid } from "@/components/container/grid";
+import { Text } from "@/components/typography/text";
 import { Suspense } from "react";
 import { ArticleCard, LoadingArticleCard } from "./article-card";
 
@@ -16,7 +17,17 @@ export const ArticleGrid = ({ limit }: ArticleGridProps) => {
 };
 
 const ArticleGridContent = async ({ limit }: ArticleGridProps) => {
-  const articles = await getLatestArticles(limit);
+  const res = await getLatestArticles({ limit });
+
+  if (!res?.data) {
+    return (
+      <Text variant="lg" className="font-bold">
+        Aucun article
+      </Text>
+    );
+  }
+
+  const { data: articles } = res;
 
   return (
     <Grid className="grid-cols-3 gap-4">

@@ -118,7 +118,7 @@ async function addLikesToArticles(articles: Article[], users: User[]) {
           return prisma.like.create({
             data: {
               userId: user.id,
-              articleId: article.slug,
+              articleSlug: article.slug,
             },
           });
         })

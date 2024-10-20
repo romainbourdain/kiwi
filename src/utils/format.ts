@@ -3,10 +3,10 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
 export const getDate = (date: Date) => {
-  return format(date, "dd/MM/yyyy", { locale: fr });
+  return format(date, "dd MMMM yyyy", { locale: fr });
 };
 export const getDateTime = (date: Date) => {
-  return format(date, "dd/MM/yyyy h:mm", { locale: fr });
+  return format(date, "dd MMMM yyyy hh:mm", { locale: fr });
 };
 
 export const getUserFallback = (user: User) => {
