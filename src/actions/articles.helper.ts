@@ -2,19 +2,6 @@ import { db } from "@/lib/db";
 import type { Like } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-const articleFields = {
-  author: true,
-  tags: true,
-  comments: {
-    include: {
-      author: true,
-    },
-  },
-  _count: {
-    select: { views: true, likes: true, comments: true },
-  },
-};
-
 /**
  * Fetches the latest articles from the database, ordered by creation date.
  *
@@ -25,20 +12,72 @@ export async function getLatestArticlesFromDb(limit: number) {
   return await db.article.findMany({
     take: limit,
     orderBy: { createdAt: "desc" },
-    include: articleFields,
+    include: {
+      author: true,
+      tags: true,
+      _count: {
+        select: { views: true, likes: true, comments: true },
+      },
+    },
   });
 }
 
 /**
- * Fetches an article by its slug from the database.
+ * Fetches all article data except the content by its slug from the database.
  *
  * @param {string} slug - The unique slug of the article.
- * @returns {Promise<any | null>} The article with author, tags, and counts, or null if not found.
+ * @returns {Promise<any | null>} The article without the content, or null if not found.
  */
-export async function getArticleBySlugFromDb(slug: string) {
+export async function getArticleInfoWithoutContentBySlug(slug: string) {
   return await db.article.findUnique({
     where: { slug },
-    include: articleFields,
+    select: {
+      title: true,
+      description: true,
+      author: true,
+      tags: true,
+      createdAt: true,
+      updatedAt: true,
+      slug: true,
+      _count: {
+        select: { views: true, likes: true, comments: true },
+      },
+    },
+  });
+}
+
+/**
+ * Fetches the content of an article by its slug from the database.
+ *
+ * @param {string} slug - The unique slug of the article.
+ * @returns {Promise<string | null>} The content of the article, or null if not found.
+ */
+export async function getArticleContentBySlug(slug: string) {
+  const article = await db.article.findUnique({
+    where: { slug },
+    select: {
+      content: true,
+    },
+  });
+  return article?.content || null;
+}
+
+/**
+ * Retrieves comments for a specific article from the database based on the provided slug.
+ *
+ * @param {string} slug - The slug of the article for which to retrieve comments.
+ * @returns {Promise<Array<Comment>>} A promise that resolves to an array of comments,
+ * each including the author information, ordered by creation date in descending order.
+ */
+export async function getArticleCommentsBySlug(slug: string) {
+  return await db.comment.findMany({
+    where: {
+      articleSlug: slug,
+    },
+    include: {
+      author: true,
+    },
+    orderBy: { createdAt: "desc" },
   });
 }
 

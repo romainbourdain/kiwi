@@ -1,4 +1,4 @@
-import { getArticleBySlug } from "@/actions/articles.action";
+import { getArticleComments } from "@/actions/articles.action";
 import { Row } from "@/components/container/flex";
 import { Text } from "@/components/typography/text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -38,18 +38,18 @@ export const ArticleComments = ({ slug }: ArticleCommentsProps) => {
 };
 
 const ArticleCommentsContent = async ({ slug }: ArticleCommentsProps) => {
-  const res = await getArticleBySlug({ slug });
+  const res = await getArticleComments({ slug });
 
   if (!res?.data) return notFound();
 
-  const { data: article } = res;
+  const { data: comments } = res;
 
   return (
     <>
-      {article.comments.length === 0 ? (
+      {comments.length === 0 ? (
         <Text variant="h4">Aucun commentaire</Text>
       ) : (
-        article.comments.map((comment) => (
+        comments.map((comment) => (
           <Card key={comment.id}>
             <CardHeader>
               <Row className="justify-between gap-3">

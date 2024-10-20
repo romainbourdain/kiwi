@@ -1,4 +1,4 @@
-import { getArticleBySlug } from "@/actions/articles.action";
+import { getArticleInfos } from "@/actions/articles.action";
 import { Row } from "@/components/container/flex";
 import { Text } from "@/components/typography/text";
 import { Badge } from "@/components/ui/badge";
@@ -23,7 +23,7 @@ export const ArticleHeader = ({ slug }: ArticleHeaderProps) => {
 };
 
 const ArticleHeaderContent = async ({ slug }: ArticleHeaderProps) => {
-  const res = await getArticleBySlug({ slug });
+  const res = await getArticleInfos({ slug });
 
   if (!res?.data) return notFound();
 

@@ -1,4 +1,4 @@
-import { getArticleBySlug } from "@/actions/articles.action";
+import { getArticleContent } from "@/actions/articles.action";
 import { Grid } from "@/components/container/grid";
 import { Mdx } from "@/components/mdx/mdx";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,13 +23,13 @@ export const ArticleContent = ({ slug }: ArticleContentProps) => {
 };
 
 const ArticleContentContent = async ({ slug }: ArticleContentProps) => {
-  const res = await getArticleBySlug({ slug });
+  const res = await getArticleContent({ slug });
 
   if (!res?.data) return notFound();
 
-  const { data: article } = res;
+  const { data: content } = res;
 
-  return <Mdx source={article.content} />;
+  return <Mdx source={content} />;
 };
 
 const ArticleContentSkeleton = () => {
