@@ -5,6 +5,11 @@ import { revalidatePath } from "next/cache";
 const articleFields = {
   author: true,
   tags: true,
+  comments: {
+    include: {
+      author: true,
+    },
+  },
   _count: {
     select: { views: true, likes: true, comments: true },
   },

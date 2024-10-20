@@ -3,11 +3,9 @@ import type {
   MDXRemoteOptions,
 } from "next-mdx-remote-client/rsc";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote-client/rsc";
-import { Suspense } from "react";
 import rehypeAutoLinkHeadings from "rehype-autolink-headings";
 import { rehypePrettyCode } from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
-import { Grid } from "../container/grid";
 import { MdxAlert } from "./mdx-alert";
 
 const components: MDXComponents = {
@@ -55,20 +53,13 @@ const options: MDXRemoteOptions = {
   },
 };
 
-export const ArticleMdx = (props: MDXRemoteProps) => {
+export const Mdx = async (props: MDXRemoteProps) => {
   return (
-    <Grid className="w-full grid-cols-[auto_1fr]">
-      <article className="w-full max-w-screen-md">
-        <Suspense fallback={<div>Loading...</div>}>
-          <MDXRemote
-            components={{ ...components, ...props.components }}
-            options={{ ...options, ...props.options }}
-            onError={() => <div>Error</div>}
-            {...props}
-          />
-        </Suspense>
-      </article>
-      <aside className=""></aside>
-    </Grid>
+    <MDXRemote
+      components={{ ...components, ...props.components }}
+      options={{ ...options, ...props.options }}
+      onError={() => <div>Error</div>}
+      {...props}
+    />
   );
 };

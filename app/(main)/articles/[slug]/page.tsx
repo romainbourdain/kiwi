@@ -1,112 +1,24 @@
-import { getArticleBySlug } from "@/actions/articles.action";
-import { Row } from "@/components/container/flex";
 import { Page, PageSeparator } from "@/components/container/page";
-import { ArticleMdx } from "@/components/mdx/mdx";
-import { Text } from "@/components/typography/text";
-import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { LikeButton } from "@/features/article/like-button";
-import { cn } from "@/lib/utils";
+import { ArticleComments } from "@/features/article/article-comments";
+import { ArticleContent } from "@/features/article/article-content";
+import { ArticleHeader } from "@/features/article/article-header";
 import type { PageParams } from "@/types/next";
-import { getDate } from "@/utils/format";
-import { Eye, Forward, MessageCircle } from "lucide-react";
-import { notFound } from "next/navigation";
-
-const fakeMarkdown = `
-# Heading 1
-## Heading 2
-### Heading 3
-#### Heading 4
-##### Heading 5
-
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi soluta a, consectetur eos ipsum molestiae nisi facilis. Unde nobis molestiae ipsam optio culpa earum numquam, ullam molestias, minima assumenda eaque deserunt consequuntur, laudantium incidunt consectetur veniam recusandae asperiores quis ea ab!
-
-> Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi
-
-<Warning>This is a warning</Warning>
-<Tip>This is a tip</Tip>
-<Danger>This is a danger</Danger>
-<Info>This is an info</Info>
-
-\`\`\`javascript showLineNumbers
-console.log("Hello World!");
-\`\`\`
-
-Lorem ipsum dolor sit amet **consectetur** adipisicing elit. Facere quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi \`inlinecode\` soluta a, consectetur eos ipsum molestiae nisi facilis. Unde nobis molestiae ipsam optio culpa earum numquam, ullam molestias, minima assumenda eaque deserunt consequuntur, laudantium incidunt consectetur __veniam__ recusandae asperiores quis ea ab!
-
-Lorem ipsum dolor sit amet *consectetur* adipisicing elit. _Facere_ quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi \`inlinecode\` soluta a, consectetur eos ipsum molestiae nisi facilis. Unde nobis molestiae ipsam optio culpa earum numquam, ullam molestias, minima assumenda eaque deserunt consequuntur, laudantium incidunt consectetur veniam recusandae asperiores quis ea ab! [google](https://google.com)
-
----
-
-Lorem ipsum dolor sit amet *consectetur* adipisicing elit. _Facere_ quisquam dolor esse unde corrupti, sapiente ducimus aspernatur excepturi \`inlinecode\` soluta a, consectetur eos ipsum molestiae nisi facilis. Unde nobis molestiae ipsam optio culpa earum numquam, ullam molestias, minima assumenda eaque deserunt consequuntur, laudantium incidunt consectetur veniam recusandae asperiores quis ea ab! [google]()
-
-- List item 1
-- List item 2
-    - List item 2.1
-- List item 3
-
-1. Numbered item 1
-    1. Numbered item 1.1
-2. Numbered item 2
-3. Numbered item 3
-`;
 
 export default async function RoutePage({
   params: { slug },
 }: PageParams<{ slug: string }>) {
-  const res = await getArticleBySlug({ slug });
-
-  if (!res?.data) return notFound();
-
-  const { data: article } = res;
-
   return (
     <Page>
       <section>
-        <Text variant="muted">{getDate(article.updatedAt)}</Text>
-        <Row className="gap-2">
-          {article.tags?.map((tag) => (
-            <Badge key={tag.slug}>{tag.slug}</Badge>
-          ))}
-        </Row>
-
-        <div className="space-y-3">
-          <Text variant="h1">{article.title}</Text>
-          <Text variant="p">{article.description}</Text>
-        </div>
-        <Row className="gap-2">
-          <LikeButton
-            isLiked={article.isLiked}
-            likes={article._count.likes}
-            slug={article.slug}
-          />
-          <Row
-            className={cn(
-              buttonVariants({ variant: "outline" }),
-              "bg-transparent"
-            )}
-          >
-            <Eye className="size-4" />
-            {article._count.views}
-          </Row>
-          <Row
-            className={cn(
-              buttonVariants({ variant: "outline" }),
-              "bg-transparent"
-            )}
-          >
-            <MessageCircle className="size-4" />
-            {article._count.comments}
-          </Row>
-          <Button variant="outline">
-            <Forward className="size-4" />
-            Partager
-          </Button>
-        </Row>
+        <ArticleHeader slug={slug} />
       </section>
       <PageSeparator />
       <section>
-        <ArticleMdx source={fakeMarkdown} />
+        <ArticleContent slug={slug} />
+      </section>
+      <PageSeparator />
+      <section>
+        <ArticleComments slug={slug} />
       </section>
     </Page>
   );

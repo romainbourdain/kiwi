@@ -1,22 +1,22 @@
 article {
   h1 {
-    @apply scroll-m-20 text-4xl font-bold tracking-tight mb-3;
+    @apply scroll-m-20 text-4xl font-bold tracking-tight mb-3 mt-12 first:mt-0;
   }
 
   h2 {
-    @apply scroll-m-20 text-3xl font-semibold tracking-tight mb-2;
+    @apply scroll-m-20 text-3xl font-semibold tracking-tight mb-2 mt-10 first:mt-0;
   }
 
   h3 {
-    @apply scroll-m-20 text-2xl font-semibold tracking-tight mb-1;
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight mb-1 mt-8 first:mt-0;
   }
 
   h4 {
-    @apply text-xl font-semibold;
+    @apply text-xl font-semibold mt-6 first:mt-0;
   }
 
   h5 {
-    @apply text-lg font-semibold;
+    @apply text-lg font-semibold mt-4 first:mt-0;
   }
 
   p {
